@@ -1,0 +1,55 @@
+# Composer vendor directory
+/vendor/
+
+# Environment variables
+.env
+
+# Log files
+/logs/
+*.log
+
+# Database files
+/db_data/
+
+# Temporary files and backups
+*.bak
+*.tmp
+
+# IDE specific files
+.idea/
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# PHPStorm specific files
+/.phpstorm.meta.php
+
+# Node modules (if using any frontend build tools)
+node_modules/
+
+# Coverage reports
+/coverage/
+
+# PHPUnit result cache
+.phpunit.result.cache
+
+# Symfony
+var/cache/
+var/log/
+var/sessions/
+
+# Laravel
+/vendor/
+node_modules/
+npm-debug.log
+yarn-error.log
+homestead.yaml
+Homestead.json
+.env.backup
+.env.*.phpunit
+
+# Ignore other directories and files that you don't want to track
+public_html/index.php
+public_html/*.php

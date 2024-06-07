@@ -1,0 +1,30 @@
+{% extends "layout.twig" %}
+
+{% block title %}Timeline{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="mt-5">Timeline</h1>
+            <p>Welcome, {{ username }}!</p>
+            <form method="post" action="/feed">
+                <div class="form-group">
+                    <label for="message">What's happening?</label>
+                    <textarea class="form-control" id="message" name="message" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Tweet</button>
+            </form>
+            <hr>
+            {% for message in messages %}
+                <div class="media">
+                    <div class="media-body">
+                        <h5 class="mt-0">{{ message.username }}</h5>
+                        <p>{{ message.message }}</p>
+                        <small>{{ message.created_at }}</small>
+                    </div>
+                </div>
+                <hr>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

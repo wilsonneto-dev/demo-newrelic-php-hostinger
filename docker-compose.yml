@@ -1,0 +1,16 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: twitter_clone_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: twitter_clone
+      MYSQL_USER: twitter_user
+      MYSQL_PASSWORD: twitter_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
