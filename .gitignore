@@ -49,7 +49,3 @@ homestead.yaml
 Homestead.json
 .env.backup
 .env.*.phpunit
-
-# Ignore other directories and files that you don't want to track
-public_html/index.php
-public_html/*.php
