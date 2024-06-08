@@ -12,7 +12,7 @@ class Logger
     {
         $logger = new MonologLogger($name);
 
-        $logFile = "/var/log/{$name}.log";
+        $logFile = "~/{$name}.log";
         $streamHandler = new StreamHandler($logFile, MonologLogger::DEBUG);
         $logger->pushHandler($streamHandler);
         $logger->pushHandler(new FirePHPHandler());
