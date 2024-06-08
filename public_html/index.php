@@ -14,7 +14,7 @@ use Twig\Environment;
 use App\Logger\Logger;
 
 $dotenv = Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
+$dotenv->safeLoad();
 
 $container = new Container();
 

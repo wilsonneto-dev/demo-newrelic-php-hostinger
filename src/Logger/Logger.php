@@ -8,11 +8,11 @@ use Monolog\Handler\StreamHandler;
 
 class Logger
 {
-    public static function getLogger($name = 'app'): MonologLogger
+    public static function getLogger($name = 'demo_twitter'): MonologLogger
     {
         $logger = new MonologLogger($name);
 
-        $logFile = __DIR__ . '/../../logs/app.log';
+        $logFile = "/var/log/{$name}.log";
         $streamHandler = new StreamHandler($logFile, MonologLogger::DEBUG);
         $logger->pushHandler($streamHandler);
         $logger->pushHandler(new FirePHPHandler());
