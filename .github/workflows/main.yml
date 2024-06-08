@@ -30,6 +30,7 @@ jobs:
           mv ./demo-newrelic-php-hostinger/* ./
           mv ./demo-newrelic-php-hostinger/.* ./
           rm -rf ./demo-newrelic-php-hostinger/
-          mv ../../demo-twitter.env ./.env
+          composer install
+          cp ../../demo-twitter.env ./.env
           ls -la
         EOF
