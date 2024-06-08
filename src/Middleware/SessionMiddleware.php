@@ -25,7 +25,7 @@ class SessionMiddleware implements Middleware
         }
 
         $route = $request->getUri()->getPath();
-        if (!isset($_SESSION['username']) && $route !== '/' && $route !== '/login') {
+        if (!isset($_SESSION['username']) && $route !== '/' && $route !== '' && $route !== '/login') {
             $this->logger->warning('Unauthorized access attempt', ['route' => $route]);
             $response = new \Slim\Psr7\Response();
             return $response->withHeader('Location', '/')->withStatus(302);

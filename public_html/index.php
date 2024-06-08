@@ -2,6 +2,8 @@
 
 require_once '../vendor/autoload.php';
 
+use App\Handlers\CustomErrorHandler;
+use App\Middleware\FlashMessageMiddleware;
 use Slim\Factory\AppFactory;
 use DI\Container;
 use Dotenv\Dotenv;
@@ -16,17 +18,13 @@ $dotenv->load();
 
 $container = new Container();
 
-echo sprintf('mysql:host=%s;dbname=%s;charset=utf8mb4',
-    getenv('DB_HOST'),
-    getenv('DB_NAME'));
-
 $container->set('pdo', function () {
     return new PDO(
         sprintf('mysql:host=%s;dbname=%s;charset=utf8mb4',
-            getenv('DB_HOST'),
-            getenv('DB_NAME')),
-        getenv('DB_USER'),
-        getenv('DB_PASS'),
+            $_ENV['DB_HOST'],
+            $_ENV['DB_NAME']),
+        $_ENV['DB_USER'],
+        $_ENV['DB_PASS'],
         [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -36,7 +34,7 @@ $container->set('pdo', function () {
 });
 
 $container->set('twig', function () {
-    $loader = new FilesystemLoader(__DIR__ . '/../src/Views');
+    $loader = new FilesystemLoader(__DIR__ . '/../src/Views/');
     return new Environment($loader);
 });
 
@@ -55,11 +53,16 @@ $container->set('MessageController', function ($c) {
 AppFactory::setContainer($container);
 $app = AppFactory::create();
 
+$app->add(new FlashMessageMiddleware($container->get('twig'), $container->get('logger')));
 $app->add(new SessionMiddleware($container->get('logger')));
+
+$app->addErrorMiddleware(true, true, true)
+    ->setDefaultErrorHandler(new CustomErrorHandler($app->getCallableResolver(), $app->getResponseFactory(), $container->get('logger'), $container->get('twig')));
 
 $app->get('/', 'MessageController:showLogin');
 $app->post('/login', 'MessageController:login');
 $app->get('/feed', 'MessageController:showFeed');
 $app->post('/feed', 'MessageController:postMessage');
+$app->post('/delete/{id}', 'MessageController:deleteMessage');
 
 $app->run();

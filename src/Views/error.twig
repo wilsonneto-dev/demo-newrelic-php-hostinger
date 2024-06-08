@@ -1,0 +1,10 @@
+{% extends "layout.twig" %}
+
+{% block title %}Error{% endblock %}
+
+{% block content %}
+    <div class="alert alert-danger mt-5" role="alert">
+        <h4 class="alert-heading">An error occurred</h4>
+        <p>{{ message }}</p>
+    </div>
+{% endblock %}
