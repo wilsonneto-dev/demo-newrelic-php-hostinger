@@ -26,6 +26,8 @@ jobs:
         NEW_RELIC_LICENSE: ${{ secrets.NEW_RELIC_LICENSE }}
       run: |
         sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no -p $SSH_PORT $SSH_USER@$SSH_HOST << 'EOF'
+          export APP_NAME=${APP_NAME}
+          export NEW_RELIC_LICENSE=${NEW_RELIC_LICENSE}
           cd domains/taskpulse.tech/ || exit
           rm -rf *
           git clone https://github.com/wilsonneto-dev/demo-newrelic-php-hostinger
@@ -34,8 +36,8 @@ jobs:
           rm -rf ./demo-newrelic-php-hostinger/
           composer install
           cp ../../demo-twitter.env ./.env
-          echo "php_value newrelic.license \"$NEW_RELIC_LICENSE\"" >> ./public_html/.htaccess
-          echo "php_value newrelic.appname \"$APP_NAME\"" >> ./public_html/.htaccess
+          echo "php_value newrelic.license \"${NEW_RELIC_LICENSE}\"" >> ./public_html/.htaccess
+          echo "php_value newrelic.appname \"${APP_NAME}\"" >> ./public_html/.htaccess
           ls -la
           
         EOF
