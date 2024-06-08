@@ -34,8 +34,8 @@ jobs:
           rm -rf ./demo-newrelic-php-hostinger/
           composer install
           cp ../../demo-twitter.env ./.env
-          echo "php_value newrelic.license \"$NEW_RELIC_LICENSE\"" >> .htaccess
-          echo "php_value newrelic.appname \"$APP_NAME\"" >> .htaccess
+          echo "php_value newrelic.license \"$NEW_RELIC_LICENSE\"" >> ./public_html/.htaccess
+          echo "php_value newrelic.appname \"$APP_NAME\"" >> ./public_html/.htaccess
           ls -la
           
         EOF
